@@ -8,13 +8,13 @@ function App() {
   const { mutate } = useIdentityMutation()
   const [email, setEmail] = useState("")
   const [firstName, setFirstName] = useState("")
-  const [secondName, setSecondName] = useState("")
+  const [lastName, setlastName] = useState("")
 
   const submit = () =>{
     mutate({
       email,
       firstName,
-      lastName: secondName
+      lastName
     })
   }
 
@@ -30,9 +30,9 @@ function App() {
             placeholder='João'
           />
           <PrimaryInput
-            value={secondName}
-            onChange={event => setSecondName(event.target.value)}
-            name='secondName'
+            value={lastName}
+            onChange={event => setlastName(event.target.value)}
+            name='lastName'
             label='Sobrenome'
             placeholder='Silva'
           />
@@ -45,7 +45,7 @@ function App() {
           placeholder='joaosilva@gmail.com'
         />
         <Spacer height='4' />
-        <Button colorScheme='green' width='100%' >ENVIAR</Button>
+        <Button colorScheme='green' width='100%' onClick={submit} >ENVIAR</Button>
       </form>
       <Spacer maxWidth='6'/>
       <div className="product-details">
