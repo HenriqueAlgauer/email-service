@@ -1,17 +1,60 @@
 import { useState } from 'react'
 import './App.css'
 import PrimaryInput from './components/PrimaryInput/PrimaryInput'
+import { Button, Spacer } from '@chakra-ui/react'
+import { useIdentityMutation } from './hooks/userIdentityMutation'
 
 function App() {
+  const { mutate } = useIdentityMutation()
   const [email, setEmail] = useState("")
-   
+  const [firstName, setFirstName] = useState("")
+  const [secondName, setSecondName] = useState("")
+
+  const submit = () =>{
+    mutate({
+      email,
+      firstName,
+      lastName: secondName
+    })
+  }
+
   return (
     <div className='container'>
-      <PrimaryInput 
-        value={email} 
-        onChange={event => setEmail(event.target.value)} name='email'
-        label='Digite seu e-mail'
-      />
+      <form>
+        <div className='name-form-container'>
+          <PrimaryInput
+            value={firstName}
+            onChange={event => setFirstName(event.target.value)}
+            name='firstName'
+            label='Nome'
+            placeholder='João'
+          />
+          <PrimaryInput
+            value={secondName}
+            onChange={event => setSecondName(event.target.value)}
+            name='secondName'
+            label='Sobrenome'
+            placeholder='Silva'
+          />
+        </div>
+        <Spacer height='4' />
+        <PrimaryInput
+          value={email}
+          onChange={event => setEmail(event.target.value)} name='email'
+          label='Digite seu e-mail'
+          placeholder='joaosilva@gmail.com'
+        />
+        <Spacer height='4' />
+        <Button colorScheme='green' width='100%' >ENVIAR</Button>
+      </form>
+      <Spacer maxWidth='6'/>
+      <div className="product-details">
+        <h2>Assinatura mensal</h2>
+        <Spacer height='4'/>
+        <p>Você irá pagar </p>
+        <span>R$ 250,00</span>
+        <p>Regras: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia distinctio nostrum</p>
+      </div>
     </div>
   )
 }
